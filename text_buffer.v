@@ -5,7 +5,8 @@ module text_buffer (
     input [7:0] ascii_code, // ASCII character to input
     input [6:0] cursor_x,   // X coordinate from the cursor module
     input [4:0] cursor_y,   // Y coordinate from the cursor module
-    output reg [7:0] character // Character at current position
+    output reg [7:0] character,  // Character at current position
+    output reg write_enable     // Signal to enable writing to the buffer
 );
 
     reg [7:0] buffer [0:24][0:79]; // 80x25 screen buffer for characters
@@ -20,9 +21,12 @@ module text_buffer (
                     buffer[i][j] = 8'h20; // ASCII space
                 end
             end
+            write_enable <= 0;  // Make sure write_enable is low on reset
         end else if (confirm_button) begin
-            // Write the ASCII character to the buffer at the current cursor position
-            buffer[cursor_y][cursor_x] <= ascii_code;
+            write_enable <= 1;  // Enable writing to buffer when confirm_button is pressed
+            buffer[cursor_y][cursor_x] <= ascii_code;  // Write the ASCII character to the buffer at the current cursor position
+        end else begin
+            write_enable <= 0;  // Disable writing when button is not pressed
         end
     end
 
