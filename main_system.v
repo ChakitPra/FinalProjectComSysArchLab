@@ -12,15 +12,15 @@ module main_system (
     output pixel_out         // VGA pixel output
 );
 
-    wire [7:0] ascii_code;
-    wire [7:0] pixels;
-    wire write_enable;
-    wire [6:0] cursor_x;
-    wire [4:0] cursor_y;
-    wire [7:0] character;
-    wire [3:0] row = v_pos % 16; // Compute the row index (0-15) for current character
+    wire [7:0] ascii_code;       // ASCII code to be written to the buffer
+    wire [7:0] pixels;           // Pixel data for the current row
+    wire write_enable;           // Enable signal to write to the buffer
+    wire [6:0] cursor_x;        // X-coordinate of the cursor
+    wire [4:0] cursor_y;        // Y-coordinate of the cursor
+    wire [7:0] character;       // Character to be rendered at cursor position
+    wire [3:0] row;             // Row index (0-15) for the current character based on vertical position
 
-    // Switch-to-ASCII Input
+    // Switch-to-ASCII Input Module
     switch_to_ascii input_module (
         .switches(switches),
         .confirm_button(confirm_button),
@@ -30,7 +30,7 @@ module main_system (
         .write_enable(write_enable)
     );
 
-    // Text Buffer
+    // Text Buffer Module
     text_buffer buffer (
         .clk(clk),
         .write_enable(write_enable),
@@ -40,7 +40,7 @@ module main_system (
         .character(character)
     );
 
-    // Cursor Control
+    // Cursor Control Module
     cursor cursor_ctrl (
         .clk(clk),
         .reset(reset),
@@ -52,21 +52,24 @@ module main_system (
         .y(cursor_y)
     );
 
-    // ASCII ROM
+    // ASCII ROM Module
     ascii_rom rom (
-        .ascii_code(character), // Fetch the current character from the buffer
-        .row(row),
-        .pixels(pixels)         // Output the row's pixel data
+        .ascii_code(character),  // Fetch the character from the buffer
+        .row(row),                // Row of the character (0 to 15)
+        .pixels(pixels)          // Output pixel data for the current row
     );
 
-    // VGA Renderer
+    // VGA Renderer Module
     vga_renderer renderer (
-        .h_pos(h_pos),
-        .v_pos(v_pos),
-        .character(character),
-        .row(row),
-        .pixels(pixels),
-        .pixel_out(pixel_out)
+        .h_pos(h_pos),            // Horizontal position from VGA controller
+        .v_pos(v_pos),            // Vertical position from VGA controller
+        .character(character),    // Character at the current cursor position
+        .row(row),                // Row index of the current character
+        .pixels(pixels),          // Pixel data of the current row
+        .pixel_out(pixel_out)     // Output pixel to be displayed on VGA
     );
+
+    // Compute row index (0 to 15) based on vertical position
+    assign row = v_pos % 16;  // Each character takes 16 rows (height)
 
 endmodule
