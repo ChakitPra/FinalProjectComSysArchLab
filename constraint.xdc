@@ -2,53 +2,53 @@
 set_property PACKAGE_PIN W5 [get_ports clk]
 set_property IOSTANDARD LVCMOS33 [get_ports clk]
 
-# Reset Button (BTN0)
-set_property PACKAGE_PIN U18 [get_ports reset]
+# Reset Button
+set_property PACKAGE_PIN R2 [get_ports reset]
 set_property IOSTANDARD LVCMOS33 [get_ports reset]
 
-# Confirm Button (BTN1)
-set_property PACKAGE_PIN T18 [get_ports confirm_button]
+# Confirm Button
+set_property PACKAGE_PIN U18 [get_ports confirm_button]
 set_property IOSTANDARD LVCMOS33 [get_ports confirm_button]
 
-# Movement Buttons (Cursor Controls)
-set_property PACKAGE_PIN W19 [get_ports move_left]   # BTN2
+# Cursor Control Buttons
+set_property PACKAGE_PIN W19 [get_ports move_left]   # Move Left Button
 set_property IOSTANDARD LVCMOS33 [get_ports move_left]
 
-set_property PACKAGE_PIN T17 [get_ports move_right]  # BTN3
+set_property PACKAGE_PIN T17 [get_ports move_right]  # Move Right Button
 set_property IOSTANDARD LVCMOS33 [get_ports move_right]
 
-set_property PACKAGE_PIN U17 [get_ports move_up]     # BTN4
+set_property PACKAGE_PIN T18 [get_ports move_up]     # Move Up Button
 set_property IOSTANDARD LVCMOS33 [get_ports move_up]
 
-set_property PACKAGE_PIN W18 [get_ports move_down]   # BTN5 (Unused on Basys 3)
+set_property PACKAGE_PIN U17 [get_ports move_down]   # Move Down Button
 set_property IOSTANDARD LVCMOS33 [get_ports move_down]
 
 # Switches (8 switches for ASCII input)
-set_property PACKAGE_PIN V17 [get_ports {switches[0]}]  # SW0
+set_property PACKAGE_PIN W13 [get_ports {switches[0]}]  # SW0
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[0]}]
 
-set_property PACKAGE_PIN V16 [get_ports {switches[1]}]  # SW1
+set_property PACKAGE_PIN W14 [get_ports {switches[1]}]  # SW1
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[1]}]
 
-set_property PACKAGE_PIN W16 [get_ports {switches[2]}]  # SW2
+set_property PACKAGE_PIN V15 [get_ports {switches[2]}]  # SW2
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[2]}]
 
 set_property PACKAGE_PIN W15 [get_ports {switches[3]}]  # SW3
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[3]}]
 
-set_property PACKAGE_PIN V15 [get_ports {switches[4]}]  # SW4
+set_property PACKAGE_PIN W17 [get_ports {switches[4]}]  # SW4
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[4]}]
 
-set_property PACKAGE_PIN W14 [get_ports {switches[5]}]  # SW5
+set_property PACKAGE_PIN W16 [get_ports {switches[5]}]  # SW5
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[5]}]
 
-set_property PACKAGE_PIN W13 [get_ports {switches[6]}]  # SW6
+set_property PACKAGE_PIN V16 [get_ports {switches[6]}]  # SW6
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[6]}]
 
-set_property PACKAGE_PIN V14 [get_ports {switches[7]}]  # SW7
+set_property PACKAGE_PIN V17 [get_ports {switches[7]}]  # SW7
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[7]}]
 
-# VGA Signals
+# VGA Signals (Optional, only if VGA is used)
 set_property PACKAGE_PIN A3 [get_ports vga_red[0]]       # R0
 set_property IOSTANDARD LVCMOS33 [get_ports vga_red[0]]
 
