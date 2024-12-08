@@ -11,6 +11,17 @@ set_property IOSTANDARD LVCMOS33 [get_ports reset]
 set_property PACKAGE_PIN U18 [get_ports btn_u18]						
 set_property IOSTANDARD LVCMOS33 [get_ports btn_u18]
 
+# Button W19 Input (for transmitting data)
+set_property PACKAGE_PIN W19 [get_ports btn_W19]						
+set_property IOSTANDARD LVCMOS33 [get_ports btn_W19]
+
+# UART
+set_property PACKAGE_PIN J1 [get_ports tx]						
+set_property IOSTANDARD LVCMOS33 [get_ports tx]
+set_property PACKAGE_PIN J2 [get_ports rx]						
+set_property IOSTANDARD LVCMOS33 [get_ports rx]
+
+
 # Switches (8-bit input for ASCII value)
 set_property PACKAGE_PIN V17 [get_ports {switches[0]}]				
 set_property IOSTANDARD LVCMOS33 [get_ports {switches[0]}]

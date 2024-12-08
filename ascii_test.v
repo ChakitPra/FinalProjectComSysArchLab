@@ -1,11 +1,4 @@
 `timescale 1ns / 1ps
-// Reference book: "FPGA Prototyping by Verilog Examples"
-//                    "Xilinx Spartan-3 Version"
-// Authored by: Pong P. Chu
-// Published by: Wiley, 2008
-// Adapted for use on Basys 3 FPGA with Xilinx Artix-7
-// by: David J. Marion aka FPGA Dude
-
 module ascii_test(
     input clk,
     input video_on,
@@ -17,7 +10,7 @@ module ascii_test(
     
     // signal declarations
     wire [10:0] rom_addr;           // 11-bit text ROM address
-    wire [6:0] ascii_char;          // 7-bit ASCII character code
+    reg [6:0] ascii_char;          // 7-bit ASCII character code
     wire [3:0] char_row;            // 4-bit row of ASCII character
     wire [2:0] bit_addr;            // column number of ROM data
     wire [7:0] rom_data;            // 8-bit row data from text ROM
@@ -30,12 +23,11 @@ module ascii_test(
     reg [7:0] char_buffer[0:3][0:15]; // 4 lines, each with 16 characters
     reg [3:0] line_pos;                // Track the current line (0 to 3)
     reg [3:0] char_pos;           // Keeps track of current position in buffer
-    
      
     // ASCII ROM interface
     assign rom_addr = {ascii_char, char_row};   // ROM address is ascii code + row
 
-    assign ascii_char = (latched_value >= 8'h20 && latched_value <= 8'h7E) ? latched_value[6:0] : 7'h2D; // if invalid, use '-'
+    //assign ascii_char = char_buffer[line_index][char_index];
     assign char_row = y[3:0];               // row number of ascii character rom
     assign bit_addr = x[2:0];               // column number of ascii character rom
     
@@ -49,7 +41,7 @@ module ascii_test(
     begin
         if (btn_pressed) begin
             // Only update buffer if we're within bounds for a character
-            if (latched_value >= 8'h20 && latched_value <= 8'h7E) begin
+            if (latched_value <= 8'h7a) begin
                 // Store valid character in the buffer at the current line and position
                 char_buffer[line_pos][char_pos] <= latched_value;
             end else begin
@@ -92,6 +84,7 @@ module ascii_test(
               
             // Debug: Monitor bit_addr and ascii_bit
             $display("bit_addr = %b, ascii_bit = %b", bit_addr, ascii_bit);
+                ascii_char = char_buffer[row_idx][char_idx];
             
                 // Compare the current character from the buffer with the ROM data
                 if (char_buffer[row_idx][char_idx] != 8'h2D) begin
